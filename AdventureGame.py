@@ -1,37 +1,185 @@
-"""Run this script with: $ python3 AdventureGame.py"""
+"""Run this script with: $ python3 AdventureGame.py SplashScreen.txt"""
+from sys import argv
+script, file_1 = argv
+
+
 class Scene(object):
     def enter(self):
         exit(1)
 
 class Engine(object):
-    pass
+    def __init__(self, scene_map):
+        self.scene_map = scene_map
+
+    def play(self):
+        current_scene = self.scene_map.opening_scene()
+        last_scene = self.scene_map.next_scene('ending')
+
+        while current_scene != last_scene:
+            print("\033c") # to clear the user's terminal window
+            next_scene_name = current_scene()
+            current_scene = self.scene_map.next_scene(next_scene_name)
+
+        current_scene.enter()
 
 # Living choices
 class Room(Scene):
-    # Bathroom or Hallway
+    def enter(self):
+        print ("You wake up in a hospital room. You don't know how you got here or for how long.")
+        print ("All you know is your head is pounding, it is silent, and the power appears to be out.")
+        print ("You stand up out of your bed and you hear a curious groaning coming from the bathroom.")
+        print ("You really have to go to the bathroom, but you're also curious to take a look in to the hallway.")
+        print ("Do you go to the bathroom or look down the hallway?")
+        answer = input(">>>").lower()
+
+        if "bathroom" in answer:
+            print (input("Great. Hit the ENTER key to head into the bathroom.\n>>>")
+            return 'bathroom'
+
+        elif "hallway" in answer:
+            print (input("Great. Hit the ENTER key to head into the hallway.\n>>>")
+            return 'hallway'
+
+        else:
+            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            return 'room'
+
 class Hallway(Scene):
-    # Elevator or stairs (to Lobby)
+    def enter(self):
+        print ("As you peek out in to the hallway, you see a couple Zombies shuffling about.")
+        print ("Down one side of the hallway you see a clear path to an elevator.")
+        print ("Down the other side of the hallway (through the Zombies) lie the stairs.")
+        print ("Looks like you're gonna have to make a run for it to survive.")
+        print ("Do you run to the elevator, or, run past the Zombies to go to the stairs?")
+        answer = input(">>>").lower()
+
+        if "elevator" in answer:
+            print (input("Great. Hit the ENTER key to sprint towards the elevators.\n>>>")
+            return 'elevator'
+
+        elif "stairs" in answer:
+            print (input("Great. Hit the ENTER key to sprint through the Zombies towards the stairs.\n>>>")
+            return 'lobby'
+
+        else:
+            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            return 'hallway'
+        # return lobby or elevator
+
 class Lobby(Scene):
-    # Outside_1 or Closet_1
-class Closet_1(Scene):
-    #
-class Closet_2(Scene):
-    #
+    def enter(self):
+        print ("Wow. The Zombies are pretty slow on foot and you make it to the stairs.")
+        print ("Looks like you made the right decision.")
+        print ("As you head down the stairs, the map on the walls says you're approaching the main lobby.")
+        print ("You arrive at the lobby and surprisingly it appears to be Zombie free.")
+        print ("The front door is within eyesight, but there's a sign by a door for a supply closet nearby.")
+        print ("There may be something useful in there for your journey.")
+        print ("Do you go ahead and exit the building, or, take a look in the supply closet?")
+        answer = input(">>> ").lower
+
+        if "exit" or "building" in answer:
+            print (input("Great. Hit the ENTER key to exit the hospital through the front doors.\n>>>")
+            return 'outside_1'
+
+        elif "supply" or "closet" in answer:
+            print (input("Great. Hit the ENTER key to head towards the supply closet.\n>>>")
+            return 'closet_1'
+
+        else:
+            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            return 'lobby'
+
+        # return closet_1 or outside_1
+
+class Closet(Scene):
+    def enter(self):
+        print ("As you walk towards the supply closet, you see a small hand-written sign on the door that reads:")
+        print ("'Zombie Attack Supply Closet'. Wow, that's convenient, huh.")
+        input(">>>")
+        print ("\nYou open the supply cabinet door. Inside you see a man who appears dead lying in the floor.")
+        print ("Suddenly, he begins to stir. You have just witnessed the reanimation of a human becoming a Zombie.")
+        print ("You instinctively stomp his head in (nice job, BTW) and you discover a wonderful collection of supplies.")
+        print ("You find a shotgun, loads of ammo, and a backpack full of supplies like MRE's and a flare gun.")
+        input(">>>")
+        print ("\nOn the wall inside you see another sign that shows the location of a helipad on the roof of the hospital.")
+        print ("Do you head to the roof with your supplies to shoot off some rescue flares, or,")
+        print ("Do you head out the front door and let your shotgun do the talking with those Zombies out there?")
+        answer = input(">>>").lower
+
+        if "front" or "door" in answer:
+            print (input("Great. Hit the ENTER key to head outside and deliver some shotgun justice to those Zombies.\n>>>")
+            return 'outside_2'
+
+        elif "roof" in answer:
+            print (input("Great. Hit the ENTER key to head towards the helipad on the roof.\n>>>")
+            return 'roof'
+
+        else:
+            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            return 'closet'
+
+
 class Roof(Scene):
-    #
+    def enter(self):
+        print ("You make it to the helipad on the roof. Not 2 minutes after firing off the first flare,")
+        print ("you hear the whirring of a helicopter approaching the hospital.")
+        print ("As the pilot touches down, you are overcome with the joy of your rescue.")
+        input(">>>")
+        print ("\nJust as you're about to board the helicopter, you get a look at how grotesque the pilot looks.")
+        print ("In fact, you see that he is badly injured himself and it's possible he'll turn in to a Zombie momentarily.")
+        print ("Do you shoot the pilot with your shotgun to fly yourself outta hear, or,")
+        print ("do you just hope the pilot will deliver you to safety?")
+        answer = input(">>>").lower
+
+        if
+        # return ending or shoot_pilot
 
 
 # Deadly choices
 class Bathroom(Scene):
-    # Zombies in bathroom eat your face off
+    def enter(self):
+        print ("Zombies lurch at you from inside the bathroom, eating your face off.")
+        print ("How were you supposed to know there were Zombies in there? I guess the moaning didn't give it away.")
+        return 'deadly'
+        # Zombies in bathroom eat your face off
+
 class Elevator(Scene):
-    # Zombies catch up to you at power outage elevators, eat your face off
+    def enter(self):
+        print ("Um... Did you forget the part about the power being out?!")
+        print ("Guess not. Well, the Zombies caught up and begin eating your face off.")
+        return 'deadly'
+        # Zombies catch up to you at power outage elevators, eat your face off
+
 class Outside_1(Scene):
-    # Zombie hoard smells fresh meat and eats your face off
+    def enter(self):
+        print ("You should've looked before you leaped. The Zombie Hoards are vast.")
+        print ("Zombies soon surround you just outside the front door and begin eating your face off.")
+        return 'deadly'
+        # Zombie hoard smells fresh meat and eats your face off
+
 class Outside_2(Scene):
+    def enter(self):
+        print ("These Zombies are no match for you and your shotgun. Right?")
+        input(">>>")
+        print ("Until they outnumbered you 1000 to 1... Your face = eaten off.")
+        print ("I guess there were more Zombies outside than you had realized.")
+        return 'deadly'
     # You shoot 3 Zombies before being overtaken by the hoard, face eaten off
+
 class Shoot_Pilot(Scene):
+    def enter(self):
+        print ("Whew--glad that guy is gone. Let's fly this bird outta here.")
+        print ("Awwww crap. You don't know how to fly a helicopter, do you?")
+        print ("The good news: you survived the crash.")
+        print ("The bad news: Zombies begin eating your face off on the ground.")
+        return 'deadly'
     # You shoot creepy pilot, try to fly helicopter yourself, crash and burn, face eaten off
+
+class Deadly(Scene):
+    print ("Who knew surviving a Zombie Apocalypse would be so hard? Better luck next time.")
+    def enter(self):
+        exit(1)
+
 
 # happy ending
 class Ending(Scene):
@@ -40,27 +188,42 @@ class Ending(Scene):
 class Map(object):
 
     scenes = {
-    'room':Room(),
-    'hallway':Hallway(),
-    'lobby':Lobby(),
-    'closet_1':Closet_1(),
-    'closet_2':Closet_2(),
-    'roof':Roof(),
-    'bathroom':Bathroom(),
-    'elevator':Elevator(),
-    'outside_1':Outside_1(),
-    'outside_2':Outside_2(),
+    'room': Room(),
+    'hallway': Hallway(),
+    'lobby': Lobby(),
+    'closet': Closet(),
+    'roof': Roof(),
+    'bathroom': Bathroom(),
+    'elevator': Elevator(),
+    'outside_1': Outside_1(),
+    'outside_2': Outside_2(),
     'shoot_pilot':Shoot_Pilot(),
-    'ending':Ending()    
+    'deadly': Deadly(),
+    'ending':Ending()
     }
 
+    def __init__(self, start_scene):
+        self.start_scene = start_scene
+    def next_scene(self, scene_name):
+        val = Map.scenes.get(scene_name)
+        return val
+    def opening_scene(self):
+        return self.next_scene(self.start_scene)
+
+
+def SplashScreen(f):
+    print ("\033c")
+    open_f = open(f)
+    print (open_f.read())
+    print (input("Press ENTER key to begin\n>>>"))
+
+SplashScreen(file_1)
+
+first_scene = Map('room')
+game = Engine(first_scene)
+game.play()
+
 """
-Here is the scene order/decision to make:
-1) Hospital Room: go to the bathroom (you really have to pee) <zombies eat you> or peek out the door to see WTH is going on <zombies chase you>
-2) Hospital Hallway: take the elevator <power is out, zombies eat you> or take the stairs <zombies trip chasing you down stairs>
-3) Hospital Lobby: you made it down the stairs into the main lobby, do you sprint to the outside <zombies swarm you, eat you> or look for a supply closet for supplies
-4) Supply Closet: lucky you, you find a door labeled "Zombie Attack Supply Closet". Open the door, dead guy in the floor reanimates. Kill him for supplies or run to the outside <die>
-5) Now that you have a backpack full of supplies and a shotgun with loooooads of ammo, do you face the zombies outside, or head to the roof to set off flares for help?
 6) Hospital roof: Set off flares to attract helicopter's attention in hopes of being rescued. Shoot scary pilot and steal helicopter <crash>, or trust pilot not to kill you
 7) Happy ending
 """
