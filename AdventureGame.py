@@ -1,4 +1,5 @@
 """Run this script with: $ python3 AdventureGame.py SplashScreen.txt"""
+from sys import exit
 from sys import argv
 script, file_1 = argv
 
@@ -16,83 +17,89 @@ class Engine(object):
         last_scene = self.scene_map.next_scene('ending')
 
         while current_scene != last_scene:
-            print("\033c") # to clear the user's terminal window
-            next_scene_name = current_scene()
+            next_scene_name = current_scene.enter()
             current_scene = self.scene_map.next_scene(next_scene_name)
 
         current_scene.enter()
 
+class Deadly(Scene):
+    print ("Who knew surviving a Zombie Apocalypse would be so hard? Better luck next time.")
+    def enter(self):
+        exit(1)
+
 # Living choices
 class Room(Scene):
     def enter(self):
+        print("\033c") # to clear the user's terminal window
         print ("You wake up in a hospital room. You don't know how you got here or for how long.")
         print ("All you know is your head is pounding, it is silent, and the power appears to be out.")
-        print ("You stand up out of your bed and you hear a curious groaning coming from the bathroom.")
+        print ("\nYou stand up out of your bed and you hear a curious groaning coming from the bathroom.")
         print ("You really have to go to the bathroom, but you're also curious to take a look in to the hallway.")
-        print ("Do you go to the bathroom or look down the hallway?")
-        answer = input(">>>").lower()
+        print ("\nDo you go to the bathroom or look down the hallway?")
+        answer_1 = input(">>>").lower()
 
-        if "bathroom" in answer:
-            print (input("Great. Hit the ENTER key to head into the bathroom.\n>>>")
+        if "bathroom" in answer_1:
+            print (input("Great. Hit the ENTER key to head into the bathroom.\n>>>"))
             return 'bathroom'
 
-        elif "hallway" in answer:
-            print (input("Great. Hit the ENTER key to head into the hallway.\n>>>")
+        elif "hallway" in answer_1:
+            print (input("Great. Hit the ENTER key to head into the hallway.\n>>>"))
             return 'hallway'
 
         else:
-            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            print (input("Eh. That doesn't sound like a good idea. Let's try this one more time.\n>>>"))
             return 'room'
 
 class Hallway(Scene):
     def enter(self):
+        print("\033c") # to clear the user's terminal window
         print ("As you peek out in to the hallway, you see a couple Zombies shuffling about.")
-        print ("Down one side of the hallway you see a clear path to an elevator.")
+        print ("\nDown one side of the hallway you see a clear path to an elevator.")
         print ("Down the other side of the hallway (through the Zombies) lie the stairs.")
-        print ("Looks like you're gonna have to make a run for it to survive.")
+        print ("\nLooks like you're gonna have to make a run for it to survive.")
         print ("Do you run to the elevator, or, run past the Zombies to go to the stairs?")
-        answer = input(">>>").lower()
+        answer_2 = input(">>>").lower()
 
-        if "elevator" in answer:
-            print (input("Great. Hit the ENTER key to sprint towards the elevators.\n>>>")
+        if "elevator" in answer_2:
+            print (input("Great. Hit the ENTER key to sprint towards the elevators.\n>>>"))
             return 'elevator'
 
-        elif "stairs" in answer:
-            print (input("Great. Hit the ENTER key to sprint through the Zombies towards the stairs.\n>>>")
+        elif "stairs" in answer_2:
+            print (input("Great. Hit the ENTER key to sprint through the Zombies towards the stairs.\n>>>"))
             return 'lobby'
 
         else:
-            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            print (input("Eh. That doesn't sound like a good idea. Let's try this one more time.\n>>>"))
             return 'hallway'
-        # return lobby or elevator
 
 class Lobby(Scene):
     def enter(self):
+        print("\033c") # to clear the user's terminal window
         print ("Wow. The Zombies are pretty slow on foot and you make it to the stairs.")
         print ("Looks like you made the right decision.")
-        print ("As you head down the stairs, the map on the walls says you're approaching the main lobby.")
+        print ("\nAs you head down the stairs, the map on the walls says you're approaching the main lobby.")
         print ("You arrive at the lobby and surprisingly it appears to be Zombie free.")
-        print ("The front door is within eyesight, but there's a sign by a door for a supply closet nearby.")
+        print ("\nThe front door is within eyesight, but there's a sign by a door for a supply closet nearby.")
         print ("There may be something useful in there for your journey.")
-        print ("Do you go ahead and exit the building, or, take a look in the supply closet?")
-        answer = input(">>> ").lower
+        print ("\nDo you go ahead and exit the building, or, take a look in the supply closet?")
+        answer_3 = input(">>> ").lower
 
-        if "exit" or "building" in answer:
-            print (input("Great. Hit the ENTER key to exit the hospital through the front doors.\n>>>")
+        if "exit" or "building" in answer_3:
+            print (input("Great. Hit the ENTER key to exit the hospital through the front doors.\n>>>"))
             return 'outside_1'
 
-        elif "supply" or "closet" in answer:
-            print (input("Great. Hit the ENTER key to head towards the supply closet.\n>>>")
+        elif "supply" or "closet" in answer_3:
+            print (input("Great. Hit the ENTER key to head towards the supply closet.\n>>>"))
             return 'closet_1'
 
         else:
-            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            print (input("Eh. That doesn't sound like a good idea. Let's try this one more time.\n>>>"))
             return 'lobby'
 
-        # return closet_1 or outside_1
 
 class Closet(Scene):
     def enter(self):
+        print("\033c")
         print ("As you walk towards the supply closet, you see a small hand-written sign on the door that reads:")
         print ("'Zombie Attack Supply Closet'. Wow, that's convenient, huh.")
         input(">>>")
@@ -104,23 +111,24 @@ class Closet(Scene):
         print ("\nOn the wall inside you see another sign that shows the location of a helipad on the roof of the hospital.")
         print ("Do you head to the roof with your supplies to shoot off some rescue flares, or,")
         print ("Do you head out the front door and let your shotgun do the talking with those Zombies out there?")
-        answer = input(">>>").lower
+        answer_4 = input(">>>").lower
 
-        if "front" or "door" in answer:
-            print (input("Great. Hit the ENTER key to head outside and deliver some shotgun justice to those Zombies.\n>>>")
+        if "front" or "door" in answer_4:
+            print (input("Great. Hit the ENTER key to head outside and deliver some shotgun justice to those Zombies.\n>>>"))
             return 'outside_2'
 
-        elif "roof" in answer:
-            print (input("Great. Hit the ENTER key to head towards the helipad on the roof.\n>>>")
+        elif "roof" in answer_4:
+            print (input("Great. Hit the ENTER key to head towards the helipad on the roof.\n>>>"))
             return 'roof'
 
         else:
-            print ("Eh. That doesn't sound like a good idea. Let's try this one more time.")
+            print (input("Eh. That doesn't sound like a good idea. Let's try this one more time.\n>>>"))
             return 'closet'
 
 
 class Roof(Scene):
     def enter(self):
+        print("\033c")
         print ("You make it to the helipad on the roof. Not 2 minutes after firing off the first flare,")
         print ("you hear the whirring of a helicopter approaching the hospital.")
         print ("As the pilot touches down, you are overcome with the joy of your rescue.")
@@ -128,30 +136,41 @@ class Roof(Scene):
         print ("\nJust as you're about to board the helicopter, you get a look at how grotesque the pilot looks.")
         print ("In fact, you see that he is badly injured himself and it's possible he'll turn in to a Zombie momentarily.")
         print ("Do you shoot the pilot with your shotgun to fly yourself outta hear, or,")
-        print ("do you just hope the pilot will deliver you to safety?")
-        answer = input(">>>").lower
+        print ("do you just hope the pilot will fly you to safety?")
+        answer_5 = input(">>>").lower
 
-        if
-        # return ending or shoot_pilot
+        if "shoot" or "shotgun" in answer_5:
+            print ("History favors the bold, am I right?!")
+            print (input("Hit the ENTER key to fly this baby outta here."))
+            return 'shoot_pilot'
 
+        elif "hope" or "safety" in answer_5:
+            print ("Great. Hit the ENTER key see what happens next.")
+            return 'ending'
+
+        else:
+            print (input("Eh. That doesn't sound like a good idea. Let's try this one more time.\n>>>"))
+            return 'closet'
 
 # Deadly choices
 class Bathroom(Scene):
     def enter(self):
+        print("\033c")
         print ("Zombies lurch at you from inside the bathroom, eating your face off.")
         print ("How were you supposed to know there were Zombies in there? I guess the moaning didn't give it away.")
         return 'deadly'
-        # Zombies in bathroom eat your face off
 
 class Elevator(Scene):
     def enter(self):
+        print("\033c")
         print ("Um... Did you forget the part about the power being out?!")
         print ("Guess not. Well, the Zombies caught up and begin eating your face off.")
         return 'deadly'
-        # Zombies catch up to you at power outage elevators, eat your face off
+        
 
 class Outside_1(Scene):
     def enter(self):
+        print("\033c") # to clear the user's terminal window
         print ("You should've looked before you leaped. The Zombie Hoards are vast.")
         print ("Zombies soon surround you just outside the front door and begin eating your face off.")
         return 'deadly'
@@ -159,6 +178,7 @@ class Outside_1(Scene):
 
 class Outside_2(Scene):
     def enter(self):
+        print("\033c") # to clear the user's terminal window
         print ("These Zombies are no match for you and your shotgun. Right?")
         input(">>>")
         print ("Until they outnumbered you 1000 to 1... Your face = eaten off.")
@@ -168,22 +188,27 @@ class Outside_2(Scene):
 
 class Shoot_Pilot(Scene):
     def enter(self):
-        print ("Whew--glad that guy is gone. Let's fly this bird outta here.")
+        print("\033c") # to clear the user's terminal window
         print ("Awwww crap. You don't know how to fly a helicopter, do you?")
         print ("The good news: you survived the crash.")
         print ("The bad news: Zombies begin eating your face off on the ground.")
         return 'deadly'
     # You shoot creepy pilot, try to fly helicopter yourself, crash and burn, face eaten off
 
-class Deadly(Scene):
-    print ("Who knew surviving a Zombie Apocalypse would be so hard? Better luck next time.")
-    def enter(self):
-        exit(1)
-
 
 # happy ending
 class Ending(Scene):
-    # pilot flys you to safety of government Zombie Outbreak camp
+    def enter(self):
+        print("\033c") # to clear the user's terminal window
+        print ("The pilot lifts off with you in the back seat.")
+        print ("Surprisingly his flying skills remain unimpaired despite his injuries.")
+        print ("\nAnd thankfully he doesn't appear to be reanimating as a Zombie mid-flight.")
+        print ("As he starts to touch down in a field inside a giant prison-like wall,")
+        print ("you're not sure what to think.")
+        print ("\nA swarm of troops approach the helicopter.")
+        print ("They inform you of all that's happened and that you're now safe in a Zombie Outbreak camp.")
+        print ("'Happy'... meet 'ending'")
+        return 'ending'
 
 class Map(object):
 
