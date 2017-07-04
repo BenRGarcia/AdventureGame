@@ -15,9 +15,11 @@ class Lobby(Scene):
     # Outside_1 or Closet_1
 class Closet_1(Scene):
     #
-class Clost_2(Scene):
-
+class Closet_2(Scene):
+    #
 class Roof(Scene):
+    #
+
 
 # Deadly choices
 class Bathroom(Scene):
@@ -35,19 +37,24 @@ class Shoot_Pilot(Scene):
 class Ending(Scene):
     # pilot flys you to safety of government Zombie Outbreak camp
 
+class Map(object):
+
+    scenes = {
+    'room':Room(),
+    'hallway':Hallway(),
+    'lobby':Lobby(),
+    'closet_1':Closet_1(),
+    'closet_2':Closet_2(),
+    'roof':Roof(),
+    'bathroom':Bathroom(),
+    'elevator':Elevator(),
+    'outside_1':Outside_1(),
+    'outside_2':Outside_2(),
+    'shoot_pilot':Shoot_Pilot(),
+    'ending':Ending()    
+    }
+
 """
-
->>>Zombie Apocalypse<<<
-
-Story Synopsis:
-You wake up in a hospital room and you don't know where you are or how you got there.
-All you know is that you're alone in the room and your head is pounding.
-You realize the hospital room's door is closed and all power is out as you lay in the hospital bed.
-
-Well isn't that strange...
-
-
-
 Here is the scene order/decision to make:
 1) Hospital Room: go to the bathroom (you really have to pee) <zombies eat you> or peek out the door to see WTH is going on <zombies chase you>
 2) Hospital Hallway: take the elevator <power is out, zombies eat you> or take the stairs <zombies trip chasing you down stairs>
